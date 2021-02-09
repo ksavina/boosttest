@@ -11,12 +11,14 @@ matrix:
           packages:
             - g++-9
       env:
-        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-0"
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
         
     - os: osx
       osx_image: xcode8
       env:
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="brew install gcc && CC=gcc-9 && CXX=g++-9"
+        
+    - os: windows
 
 before_install:
     - eval "${MATRIX_EVAL}"
@@ -24,3 +26,12 @@ before_install:
 script:
   - cd PyLFMF
   - g++-9 -o run ./*.cpp
+
+deploy:
+  provider: releases
+  api_key: "f120e9cda4056a540a2e8416d06845dcc2296028"
+  file: "run"
+  skip_cleanup: true
+  on:
+    tags: true
+
