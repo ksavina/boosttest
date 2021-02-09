@@ -9,9 +9,9 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-7
+            - g++-9
       env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-0"
         
     - os: osx
       osx_image: xcode8
@@ -23,4 +23,4 @@ before_install:
 
 script:
   - cd PyLFMF
-  - g++ -o run ./*.cpp
+  - g++-9 -o run ./*.cpp
