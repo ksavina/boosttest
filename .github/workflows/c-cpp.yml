@@ -14,4 +14,4 @@ jobs:
     steps:
 
     - name: make
-      run: g++ -o run ./*.cpp
+      run: g++ -o run ./PyLFMF/*.cpp
