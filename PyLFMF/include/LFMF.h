@@ -26,7 +26,6 @@ using std::complex;
 #define METHOD__RESIUDE_SERIES      1
 
 #define WERF_TERMS                  30  // Number of terms for the complex error function
-
 #define YES                         1   // Find the derivative i.e., Ai'() or Bi'()
 #define NO                          0   // Find Ai() or Bi()
 // kind
