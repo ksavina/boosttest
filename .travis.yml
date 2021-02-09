@@ -10,5 +10,5 @@ compiler:
   - clang
 
 script:
-  - cd src
+  - cd PyLFMF
   - make all
