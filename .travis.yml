@@ -10,4 +10,4 @@ compiler:
 
 script:
   - cd PyLFMF
-  - make all
+  - g++ -o run ./*.cpp
