@@ -7,9 +7,21 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  job1:
 
-    runs-on: [ubuntu-latest, windows-latest]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: make
+        run: g++ -o run ./PyLFMF/*.cpp
+        
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./arts
+  job2:
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
