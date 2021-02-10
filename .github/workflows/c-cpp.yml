@@ -38,3 +38,18 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           path: ./build
+  job3:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Mkdir
+        run: mkdir ./build
+
+      - name: make
+        run: g++ -o ./build/run.exe ./PyLFMF/*.cpp
+        
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./build
