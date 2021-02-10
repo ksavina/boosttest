@@ -78,7 +78,10 @@ std::vector<double>  LFMF(double h_tx__meter, double h_rx__meter, double f__mhz,
         d__km, epsilon, sigma, pol, lambda__meter);
     if (rtn != SUCCESS)
     {
-	v = {rtn, -1, -1};
+	v[0] = rtn;
+	v[1] = -1;
+	v[2] = -1;
+	v[3] = -1;
 	return v;
     }
 
@@ -140,18 +143,17 @@ std::vector<double>  LFMF(double h_tx__meter, double h_rx__meter, double f__mhz,
     // basic transmission loss is not a function of power/gain, but since electric field strength E_gw is a function of (Gt * Pt),
     //    and Lbtl is a function of 1/E_gw, we add in (Gt * Pt) to remove its effects
     
-    double A = 10 * log10(P_tx__watt * G_tx) 
+    v[0] = 10 * log10(P_tx__watt * G_tx) 
                 + 10 * log10(ETA * 4 * PI) 
                 + 20 * log10(f__hz) 
                 - 20 * log10(E_gw / 1000) 
                 - 20 * log10(C);
 
     // the 60 constant comes from converting field strength from mV/m to dB(uV/m) thus 20*log10(1e3)
-    double E = 60 + 20 * log10(E_gw);
+    v[1] = 60 + 20 * log10(E_gw);
 
     // Note power is a function of frequency.  42.8 comes from MHz to hz, power in dBm, and the remainder from
     // the collection of constants in the derivation of the below equation.
-    double P = E + G_rx__dbi - 20.0*log10(f__hz) + 42.8;
-    v = {A, E, P};
+    v[2] = v[1] + G_rx__dbi - 20.0*log10(f__hz) + 42.8;
     return v;
 }
