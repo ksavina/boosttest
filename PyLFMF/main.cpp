@@ -70,7 +70,7 @@ int main()
 std::vector<double>  LFMF(double h_tx__meter, double h_rx__meter, double f__mhz, double P_tx__watt,
     double N_s, double d__km, double epsilon, double sigma, int pol)
 {
-    std::vector<double> v;
+    std::vector<double> v = {0, 0, 0, 0};
     double f__hz = f__mhz * 1e6;
     double lambda__meter = C / f__hz;                           
     
@@ -117,12 +117,12 @@ std::vector<double>  LFMF(double h_tx__meter, double h_rx__meter, double f__mhz,
     if (d__km < d_test__km)
     {
         E_gw = FlatEarthCurveCorrection(delta, q, h_1__km, h_2__km, d__km, k);
-		method = METHOD__FLAT_EARTH_CURVE;
+		v[3] = METHOD__FLAT_EARTH_CURVE;
     } 
     else
     {
 		E_gw = ResidueSeries(d__km, k, h_1__km, h_2__km, nu, theta__rad, q);
-                method = METHOD__RESIUDE_SERIES;
+                v[3] = METHOD__RESIUDE_SERIES;
     }
 
     // Antenna gains
