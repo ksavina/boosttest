@@ -57,7 +57,7 @@ int main()
 				i = -1;
 				pol = std::stoi(line);
 				std::vector<double> v = LFMF(h_tx__meter, h_rx__meter, f__mhz, P_tx__watt, N_s, d__km, epsilon, sigma, pol);
-				data_out << v[0] << " "  << v[1] << " "  << v[2] << "\n";
+				data_out << v[0] << " "  << v[1] << " "  << v[2] << " " << v[3] << "\n";
 			}
 			i++;
 			data_out << i << "\n";
