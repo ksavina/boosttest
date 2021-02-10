@@ -60,6 +60,8 @@ int main()
 				data_out << v[0] << " "  << v[1] << " "  << v[2] << "\n";
 			}
 			i++;
+			data_out << i << "\n";
+			
 		}
 		data_out.close();	
     		data.close();
@@ -70,7 +72,7 @@ int main()
 std::vector<double>  LFMF(double h_tx__meter, double h_rx__meter, double f__mhz, double P_tx__watt,
     double N_s, double d__km, double epsilon, double sigma, int pol)
 {
-    std::vector<double> v = {0, 0, 0, 0};
+    std::vector<double> v;
     double f__hz = f__mhz * 1e6;
     double lambda__meter = C / f__hz;                           
     
@@ -78,10 +80,11 @@ std::vector<double>  LFMF(double h_tx__meter, double h_rx__meter, double f__mhz,
         d__km, epsilon, sigma, pol, lambda__meter);
     if (rtn != SUCCESS)
     {
-	v[0] = rtn;
-	v[1] = -1;
-	v[2] = -1;
-	v[3] = -1;
+	v.push_back(rtn);
+   	v.push_back(-1);
+	v.push_back(-1);
+	v.push_back(-1);
+
 	return v;
     }
 
@@ -117,12 +120,12 @@ std::vector<double>  LFMF(double h_tx__meter, double h_rx__meter, double f__mhz,
     if (d__km < d_test__km)
     {
         E_gw = FlatEarthCurveCorrection(delta, q, h_1__km, h_2__km, d__km, k);
-		v[3] = METHOD__FLAT_EARTH_CURVE;
+		v.push_back(METHOD__FLAT_EARTH_CURVE);
     } 
     else
     {
 		E_gw = ResidueSeries(d__km, k, h_1__km, h_2__km, nu, theta__rad, q);
-                v[3] = METHOD__RESIUDE_SERIES;
+                v.push_back(METHOD__RESIUDE_SERIES);
     }
 
     // Antenna gains
@@ -143,17 +146,17 @@ std::vector<double>  LFMF(double h_tx__meter, double h_rx__meter, double f__mhz,
     // basic transmission loss is not a function of power/gain, but since electric field strength E_gw is a function of (Gt * Pt),
     //    and Lbtl is a function of 1/E_gw, we add in (Gt * Pt) to remove its effects
     
-    v[0] = 10 * log10(P_tx__watt * G_tx) 
+    v.push_back(10 * log10(P_tx__watt * G_tx) 
                 + 10 * log10(ETA * 4 * PI) 
                 + 20 * log10(f__hz) 
                 - 20 * log10(E_gw / 1000) 
-                - 20 * log10(C);
+                - 20 * log10(C));
 
     // the 60 constant comes from converting field strength from mV/m to dB(uV/m) thus 20*log10(1e3)
-    v[1] = 60 + 20 * log10(E_gw);
+    v.push_back(60 + 20 * log10(E_gw));
 
     // Note power is a function of frequency.  42.8 comes from MHz to hz, power in dBm, and the remainder from
     // the collection of constants in the derivation of the below equation.
-    v[2] = v[1] + G_rx__dbi - 20.0*log10(f__hz) + 42.8;
+    v.push_back(v[2] + G_rx__dbi - 20.0*log10(f__hz) + 42.8);
     return v;
 }
