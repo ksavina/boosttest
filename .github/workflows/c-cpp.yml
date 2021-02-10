@@ -15,11 +15,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: make
-        run: g++ -o run ./PyLFMF/*.cpp
+        run: g++ -o ./build/run ./PyLFMF/*.cpp
         
       - uses: actions/upload-artifact@v2
         with:
-          path: ./arts
+          path: ./build
   job2:
     runs-on: windows-latest
 
@@ -27,8 +27,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: make
-        run: g++ -o run ./PyLFMF/*.cpp
+        run: g++ -o ./build/run.exe ./PyLFMF/*.cpp
         
       - uses: actions/upload-artifact@v2
         with:
-          path: ./arts
+          path: ./build
