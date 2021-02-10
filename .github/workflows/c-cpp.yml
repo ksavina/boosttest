@@ -18,7 +18,7 @@ jobs:
         run: mkdir ./build
 
       - name: make
-        run: g++ -o ./build/run ./PyLFMF/*.cpp
+        run: g++ -o ./build/run_nix ./PyLFMF/*.cpp
         
       - uses: actions/upload-artifact@v2
         with:
@@ -48,7 +48,7 @@ jobs:
         run: mkdir ./build
 
       - name: make
-        run: g++ -o ./build/run.exe ./PyLFMF/*.cpp
+        run: g++ -o ./build/run_mac ./PyLFMF/*.cpp
         
       - uses: actions/upload-artifact@v2
         with:
