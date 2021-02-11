@@ -75,18 +75,6 @@ std::vector<double>  LFMF(double h_tx__meter, double h_rx__meter, double f__mhz,
     double f__hz = f__mhz * 1e6;
     double lambda__meter = C / f__hz;                           
     
-	int rtn = ValidateInput(h_tx__meter, h_rx__meter, f__mhz, P_tx__watt, N_s,
-        d__km, epsilon, sigma, pol, lambda__meter);
-    if (rtn != SUCCESS)
-    {
-	v.push_back(rtn);
-   	v.push_back(-1);
-	v.push_back(-1);
-	v.push_back(-1);
-
-	return v;
-    }
-
     // Create the complex value j since this was written by electrical engineers
     complex<double> j = complex<double>(0.0, 1.0);
 
